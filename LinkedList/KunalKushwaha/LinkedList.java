@@ -30,6 +30,18 @@ public class LinkedList {
         System.out.println("END");
     }
 
+    public void addAtTail(int val) {
+        Node n = new Node(val);
+        if (tail != null) {
+            tail.next = n;
+        }
+        if (tail == null || size == 0) {
+            head = n;
+        }
+        tail = n;
+        size++;
+    }
+
     public void insertRec(int val, int index) {
         head = insertRec(val, index, head);
     }
@@ -46,6 +58,7 @@ public class LinkedList {
     }
 
 
+    //Leetcode Question 83. Remove Duplicates from Sorted List
     public void duplicates(){
         Node node = head;
 
@@ -63,9 +76,39 @@ public class LinkedList {
         tail.next = null;
     }
 
+    //21. Merge Two Sorted Lists
+    public static LinkedList merge(LinkedList first, LinkedList second){
+        Node f = first.head;
+        Node s = second.head;
+
+        LinkedList ans = new LinkedList();
+
+        while (f != null && s != null) {
+            if (f.val < s.val) {
+                ans.addAtTail(f.val);
+                f = f.next;
+            } else {
+                ans.addAtTail(s.val);
+                s = s.next;
+            }
+        }
+
+            while (f != null){
+                ans.addAtTail(f.val);
+                f = f.next;
+            }
+
+            while (s!=null){
+                ans.addAtTail(s.val);
+                s = s.next;
+            }
+        return ans;
+    }
+
 
     public static void main(String[] args) {
-        LinkedList ll = new LinkedList();
+        //Question 83
+        /*LinkedList ll = new LinkedList();
         ll.insertRec(1,0);
         ll.insertRec(1,0);
         ll.insertRec(1,0);
@@ -76,11 +119,27 @@ public class LinkedList {
         ll.insertRec(3,0);
         ll.insertRec(4,0);
         ll.display();
-
         ll.duplicates();
-        ll.display();
+        ll.display();*/
 
+        //Question 21
+        LinkedList first = new LinkedList();
+        LinkedList sec = new LinkedList();
 
+        first.addAtTail(1);
+        first.addAtTail(3);
+        first.addAtTail(5);
+
+        sec.addAtTail(1);
+        sec.addAtTail(2);
+        sec.addAtTail(9);
+        sec.addAtTail(14);
+
+        first.display();
+        sec.display();
+
+        LinkedList a = merge(first,sec);
+        a.display();
     }
 
 
